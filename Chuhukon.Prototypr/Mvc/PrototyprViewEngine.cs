@@ -20,8 +20,8 @@ namespace Chuhukon.Prototypr.Mvc
                 //predefined partial view directories..
                 "~/Views/components/{0}.cshtml",
 
-                //if no view is found, always get default.cshtml
-                "~/Views/default.cshtml"
+                //if no view is found, always show notfound.cshtml
+                "~/Views/notfound.cshtml"
             };
 
             this.PartialViewLocationFormats = viewLocations;
