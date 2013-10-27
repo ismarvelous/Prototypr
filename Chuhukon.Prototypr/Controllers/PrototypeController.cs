@@ -1,5 +1,5 @@
-﻿using MarkdownSharp;
-using Newtonsoft.Json;
+﻿using Chuhukon.Prototypr.Core.Base;
+using Chuhukon.Prototypr.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
-using Chuhukon.Markdown.Extensions;
 
 namespace Chuhukon.Prototypr.Controllers
 {
@@ -20,79 +19,25 @@ namespace Chuhukon.Prototypr.Controllers
     /// </summary>
     public class PrototypeController : Controller
     {
-        //
-        // GET: /Simple/
+        private ISiteRepository Repository;
 
-        private StringBuilder ViewPath(string[] route)
+        public PrototypeController(ISiteRepository repository)
         {
-            StringBuilder viewname = new StringBuilder();
-            for (int i = 0; i < route.Length - 1; i++) 
-            {
-                if (i < route.Length - 2)
-                    viewname.AppendFormat("{0}/", route[i]);
-                else
-                    viewname.Append(route[i]);
-
-            }
-
-            return viewname;
+            Repository = repository;
         }
 
         public ActionResult Index()
         {
             if (this.RouteData.Values.ContainsKey("path") && this.RouteData.Values["path"] != null)
             {
-                dynamic model = new System.Dynamic.ExpandoObject();
                 string path = this.RouteData.Values["path"].ToString();
-                string[] route = path.ToString().Split('/');
-                string view = path;
 
-                //data path under app_data is equal to url path
-                var jsonpath = Path.Combine(Server.MapPath("~/App_Data/"), string.Format("{0}.json", path.Replace('/', '\\')));
-                var mdpath = Path.Combine(Server.MapPath("~/App_Data/"), string.Format("{0}.md", path.Replace('/', '\\')));
-                var dirpath = Path.Combine(Server.MapPath("~/App_Data/"), path.Replace('/', '\\'));
+                dynamic model = Repository.FindModel(path);
 
-                //check if path is a data path..
-                if (System.IO.File.Exists(jsonpath))
-                {
-                    var viewname = ViewPath(route);
+                //return site and model..
+                ViewData.Add("Site", new Site(Repository));
 
-                    model = JsonConvert.DeserializeObject(System.IO.File.ReadAllText(jsonpath));
-
-                    if (model.Layout != null) //if layout is specified in data file, display using specified layout (view) file
-                        view = model.Layout;
-                    else
-                        view = viewname.Append("/item").ToString();
-
-                }
-                else if (System.IO.File.Exists(mdpath))
-                {
-                    var viewname = ViewPath(route);
-                    MarkdownSharp.Markdown md = new MarkdownSharp.Markdown();
-
-                    model.Content = MvcHtmlString.Create(md.Transform(System.IO.File.ReadAllText(mdpath), model as IDictionary<string, object>));
-
-                    if (model.Layout != null) //if layout is specified in markdown file, display using specified layout (view) file
-                        view = model.Layout;
-                    else
-                        view = viewname.Append("/item").ToString();
-                }
-                else if(System.IO.Directory.Exists(dirpath))
-                {
-                    var json = System.IO.Directory.GetFiles(dirpath, "*.json");
-                    //todo: markdown!
-
-                    var pages = new List<dynamic>();
-                    foreach (var content in json)
-                    {
-                        pages.Add(JsonConvert.DeserializeObject(System.IO.File.ReadAllText(content)));
-                    }
-
-                    model = pages.AsEnumerable();
-                }
-
-                //default: view is equal to url path
-                return View(view, model);
+                return View(model.Layout, model); //default: view is equal to url path
             }
 
             return HttpNotFound();

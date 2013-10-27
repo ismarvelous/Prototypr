@@ -24,6 +24,8 @@ namespace Chuhukon.Prototypr
             ViewEngines.Engines.Add(new PrototyprViewEngine());
 
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+
+            ControllerBuilder.Current.SetControllerFactory(new PrototyprControllerFactory());
         }
     }
 }

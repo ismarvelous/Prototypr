@@ -49,6 +49,9 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -86,10 +89,6 @@
     <Reference Include="System.Web.Http.WebHost, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.4.0.20710.0\lib\net40\System.Web.Http.WebHost.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.AspNet.Mvc.4.0.20710.0\lib\net40\System.Web.Mvc.dll</HintPath>
-    </Reference>
     <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.Razor.2.0.20715.0\lib\net40\System.Web.Razor.dll</HintPath>
@@ -109,13 +108,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\PrototypeController.cs" />
+    <Compile Include="Core\Models\ModelCollection.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Core\Base\ISiteRepository.cs" />
+    <Compile Include="Core\Models\Site.cs" />
+    <Compile Include="Infrastructure\Extensions.cs" />
+    <Compile Include="Infrastructure\SiteRepository.cs" />
     <Compile Include="Mvc\PrototyprViewEngine.cs" />
     <Compile Include="Mvc\PrototyprViewPage.cs" />
-    <Compile Include="Mvc\SiteHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PrototyprControllerFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -143,9 +147,7 @@
     <Content Include="Views\custom.cshtml" />
     <Content Include="Views\docs\item.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
@@ -156,7 +158,7 @@
     <Content Include="Views\notfound.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\components\partial.cshtml" />
+    <Content Include="Views\_components\partial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MarkdownSharp\MarkdownSharp.csproj">

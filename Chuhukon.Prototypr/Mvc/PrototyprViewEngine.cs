@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -10,22 +11,21 @@ namespace Chuhukon.Prototypr.Mvc
     {
         public PrototyprViewEngine()
         {
-            var viewLocations =  new[] {  
-
-                //{0} = viewname {1} = controller name
-                //both allowed */path.cshtml and */path/index.chtml
+            var viewLocations =  new List<string> {  
                 "~/Views/{0}/index.cshtml",  
                 "~/Views/{0}.cshtml",  
-
-                //predefined partial view directories..
-                "~/Views/components/{0}.cshtml",
-
-                //if no view is found, always show notfound.cshtml
-                "~/Views/notfound.cshtml"
             };
 
-            this.PartialViewLocationFormats = viewLocations;
-            this.ViewLocationFormats = viewLocations;
+            var partials = ConfigurationManager.AppSettings["partialfolders"].Split(';');
+
+            foreach(var partial in partials)
+            {
+                viewLocations.Add(string.Format("~/Views/{0}/{1}.cshtml", partial, "{0}"));
+            }
+               
+
+            this.PartialViewLocationFormats = viewLocations.ToArray();
+            this.ViewLocationFormats = viewLocations.ToArray();
         }
     }
 }

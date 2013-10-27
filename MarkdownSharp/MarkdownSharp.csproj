@@ -65,7 +65,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Markdown.cs" />
-    <Compile Include="Extensions\Metadata.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

@@ -1,14 +1,22 @@
-﻿using System;
+﻿using Chuhukon.Prototypr.Core.Base;
+using Chuhukon.Prototypr.Core.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+using System.Web;
 
-namespace Chuhukon.Markdown.Extensions
+namespace Chuhukon.Prototypr.Infrastructure
 {
-    public static class Metadata
+    public static class Extensions
     {
+        public static dynamic AsModelCollection<TSource>(this IEnumerable<TSource> source, string path, ISiteRepository repository)
+        {
+            var collection = new ModelCollection<TSource>(source, path, repository);
+            return collection;
+        }
+
         /// <summary>
         /// Use MarkdownSharp to transform a markdown file to html, but save the meta data into the given metamodel
         /// </summary>
@@ -22,6 +30,8 @@ namespace Chuhukon.Markdown.Extensions
             bool metamode = false;
             StringBuilder markdowndata = new StringBuilder();
             System.IO.StringReader reader = new System.IO.StringReader(text);
+
+            //TODO: use http://www.aaubry.net/page/YamlDotNet
 
             string line;
             while ((line = reader.ReadLine()) != null)

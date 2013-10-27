@@ -7,16 +7,26 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarkdownSharp", "MarkdownSh
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		CodeCoverage|Any CPU = CodeCoverage|Any CPU
 		Debug|Any CPU = Debug|Any CPU
+		FxCop|Any CPU = FxCop|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8ADCC275-E832-4BD3-ACC4-8F1087157D96}.CodeCoverage|Any CPU.ActiveCfg = Release|Any CPU
+		{8ADCC275-E832-4BD3-ACC4-8F1087157D96}.CodeCoverage|Any CPU.Build.0 = Release|Any CPU
 		{8ADCC275-E832-4BD3-ACC4-8F1087157D96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8ADCC275-E832-4BD3-ACC4-8F1087157D96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8ADCC275-E832-4BD3-ACC4-8F1087157D96}.FxCop|Any CPU.ActiveCfg = Release|Any CPU
+		{8ADCC275-E832-4BD3-ACC4-8F1087157D96}.FxCop|Any CPU.Build.0 = Release|Any CPU
 		{8ADCC275-E832-4BD3-ACC4-8F1087157D96}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8ADCC275-E832-4BD3-ACC4-8F1087157D96}.Release|Any CPU.Build.0 = Release|Any CPU
+		{37619116-CCE8-465A-8B1F-081CA53364BB}.CodeCoverage|Any CPU.ActiveCfg = Release|Any CPU
+		{37619116-CCE8-465A-8B1F-081CA53364BB}.CodeCoverage|Any CPU.Build.0 = Release|Any CPU
 		{37619116-CCE8-465A-8B1F-081CA53364BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{37619116-CCE8-465A-8B1F-081CA53364BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37619116-CCE8-465A-8B1F-081CA53364BB}.FxCop|Any CPU.ActiveCfg = Release|Any CPU
+		{37619116-CCE8-465A-8B1F-081CA53364BB}.FxCop|Any CPU.Build.0 = Release|Any CPU
 		{37619116-CCE8-465A-8B1F-081CA53364BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{37619116-CCE8-465A-8B1F-081CA53364BB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection

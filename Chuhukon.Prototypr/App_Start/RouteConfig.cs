@@ -14,7 +14,7 @@ namespace Chuhukon.Prototypr
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-                "Folders",
+                "Default",
                 "{*path}",
                 new { controller = "Prototype", action = "Index", path="home" }
             );

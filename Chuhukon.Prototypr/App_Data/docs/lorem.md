@@ -1,7 +1,6 @@
 ﻿---
 Author: Jeroen Wijdeven
 Date: 2013-10-20
-Layout: custom
 Title: "lorem ipsum title"
 ---
 

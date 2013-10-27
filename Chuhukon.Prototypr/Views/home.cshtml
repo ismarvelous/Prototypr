@@ -2,6 +2,23 @@
     ViewBag.Title = "home";
 }
 
-<h2>home</h2>
+<h2>Posts</h2>
 
-@Html.Partial("partial")
+<ul>
+    @foreach (var post in Site.posts)
+    {
+        <li>@post.Title</li>
+    }
+</ul>
+
+
+<h2>Docs</h2>
+
+<ul>
+    @foreach (var doc in Site.docs)
+    {
+        <li>@(doc.Title) - @(doc.Author)</li>
+    }
+</ul>
+
+

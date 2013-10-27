@@ -8,11 +8,21 @@ namespace Chuhukon.Prototypr.Mvc
 {
     public class PrototyprViewPage<TModel> : WebViewPage<TModel>
     {
-        public SiteHelper<TModel> Site
+        private dynamic _site;
+
+        /// <summary>
+        /// Gets the Site item of the associated ViewDataDictionary class
+        /// </summary>
+        public dynamic Site
         {
             get
             {
-                return new SiteHelper<TModel>();
+                if(_site == null)
+                {
+                    _site = ViewData["Site"];
+                }
+
+                return _site;
             }
         }
         public override void Execute()
