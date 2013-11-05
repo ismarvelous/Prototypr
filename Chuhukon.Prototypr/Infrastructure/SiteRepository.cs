@@ -7,6 +7,7 @@ using Chuhukon.Prototypr.Core.Base;
 using System.Text;
 using System.Dynamic;
 using System.IO;
+using Chuhukon.Prototypr.Core.Models;
 
 
 namespace Chuhukon.Prototypr.Infrastructure
@@ -18,57 +19,86 @@ namespace Chuhukon.Prototypr.Infrastructure
     {
         private string MapPath { get; set; }
 
-        private string DefaultItemPath(string path)
-        {
-            string[] route = path.ToString().Split('/');
-            StringBuilder viewname = new StringBuilder();
-            for (int i = 0; i < route.Length - 1; i++)
-            {
-                if (i < route.Length - 2)
-                    viewname.AppendFormat("{0}/", route[i]);
-                else
-                    viewname.Append(route[i]);
-
-            }
-
-            return viewname.Append("/item").ToString();
-        }
-
         public SiteRepository(string mapPath)
         {
             MapPath = mapPath;
         }
 
-        public dynamic FindModel(string path)
+        /// <summary>
+        /// Find a model based on the given URL path...
+        /// Always contains properties (Layout, Url)
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        public IDataModel FindModel(string path)
         {
+            //first check if this path is a permalink
+            var permaLink = Permalinks().FirstOrDefault(l => l.Key.Equals(path));
+            if (permaLink.Key != null)
+                path = permaLink.Value;
+
             MarkdownSharp.Markdown md = new MarkdownSharp.Markdown();
-            dynamic model = new ExpandoObject();
+            IDataModel model = new DynamicFileDataObject(new ExpandoObject() as IDictionary<string, object>);
 
             //data path under app_data is equal to url path
-            var jsonpath = Path.Combine(MapPath, string.Format("{0}.json", path.Replace('/', '\\')));
-            var mdpath = Path.Combine(MapPath, string.Format("{0}.md", path.Replace('/', '\\')));
-            var dirpath = Path.Combine(MapPath, path.Replace('/', '\\'));
-            
+            string[] dataPaths = new string[] { 
+                Path.Combine(MapPath, string.Format("{0}.json", path.Replace('/', '\\'))),
+                Path.Combine(MapPath, string.Format("{0}.md", path.Replace('/', '\\'))),
+                Path.Combine(MapPath, path.Replace('/', '\\'))
+            };
 
-            if (System.IO.File.Exists(jsonpath)) //does json file exist?
+            foreach (var dataPath in dataPaths)
             {
-                model = JsonConvert.DeserializeObject<ExpandoObject>(System.IO.File.ReadAllText(jsonpath), new Newtonsoft.Json.Converters.ExpandoObjectConverter()); //deserialize json object
+                model = GetModel(dataPath);
 
-                if (!((IDictionary<String, object>)model).ContainsKey("Layout")) //if layout is not specified in json file, use default layout
-                    model.Layout = DefaultItemPath(path);
-                
+                if (model != null)
+                {
+                    if (model is IDictionary<String, object> && !((IDictionary<String, object>)model).ContainsKey("Layout"))
+                        model.Layout = path;
+                    else if (model.Layout == null)
+                        model.Layout = path;
+
+                    break;
+                }
             }
-            else if (System.IO.File.Exists(mdpath)) //does markdown file exist?
+
+            if(model == null)
             {
-                model.Content = System.Web.Mvc.MvcHtmlString.Create(md.Transform(System.IO.File.ReadAllText(mdpath), model as IDictionary<string, object>)); //deserialze markdown..
-
-                if (!((IDictionary<String, object>)model).ContainsKey("Layout")) //if layout is not specified in markdown file, use default layout
-                    model.Layout = DefaultItemPath(path);
+                model = new DynamicFileDataObject(new ExpandoObject() as IDictionary<string, object>);
+                model.Layout = path;
+                model.Url = path;
             }
-            else if (System.IO.Directory.Exists(dirpath)) //path is equal the the directory
+            else if (model is DynamicFileDataObject)
+            {
+                if (((dynamic)model).PermaLink != null)
+                    model.Url = ((dynamic)model).Permalink;
+                else
+                    model.Url = path;
+            }
+
+            return model;
+        }
+
+        private IDataModel GetModel(string dataPath)
+        {
+            MarkdownSharp.Markdown md = new MarkdownSharp.Markdown();
+            dynamic model = null;
+
+            if (dataPath.EndsWith(".json") && System.IO.File.Exists(dataPath)) //does json file exist?
+            {
+                var source = JsonConvert.DeserializeObject<ExpandoObject>(System.IO.File.ReadAllText(dataPath), new Newtonsoft.Json.Converters.ExpandoObjectConverter()); //deserialize json object
+                model = new DynamicFileDataObject(source as IDictionary<string, object>);
+            }
+            else if (dataPath.EndsWith(".md") && System.IO.File.Exists(dataPath)) //does markdown file exist?
+            {
+                dynamic source = new ExpandoObject();
+                model = new DynamicFileDataObject(source as IDictionary<string, object>);
+                model.Content = System.Web.Mvc.MvcHtmlString.Create(md.Transform(System.IO.File.ReadAllText(dataPath), source as IDictionary<string, object>)); //deserialze markdown..
+            }
+            else if (System.IO.Directory.Exists(dataPath)) //path is equal the the directory
             {
                 //Get all data files
-                var dataFiles = System.IO.Directory.GetFiles(dirpath, "*.*")
+                var dataFiles = System.IO.Directory.GetFiles(dataPath, "*.*")
                     .Where(f => f.EndsWith(".md") || f.EndsWith(".json"));
 
                 var pages = new List<dynamic>(); //model is IEnumerable of all directory files
@@ -86,16 +116,50 @@ namespace Chuhukon.Prototypr.Infrastructure
                     }
                 }
 
-                model = pages.AsModelCollection(path, this);
-                model.Layout = path;
+                model = pages.AsModelCollection(dataPath, this);
             }
             else
             {
-                model.Layout = path;
+                return null;
             }
 
             return model;
-            
+        }
+
+        /// <summary>
+        /// Search all data files for permalinks
+        /// </summary>
+        /// <returns></returns>
+        public IDictionary<string, string> Permalinks()
+        {
+            //TODO: global caching!!!
+            return Permalinks(MapPath, new Dictionary<string, string>());
+        }
+
+        private IDictionary<string, string> Permalinks(string path, IDictionary<string, string> dic)
+        {
+            //permalink support for .md and .json files only
+            foreach (var dataPath in Directory.EnumerateFiles(path))
+            {
+                dynamic model = GetModel(dataPath);
+
+                if (model != null && model.PermaLink != null)
+                {
+                    //TODO: calculate correct path...
+                    var originalPath = Path.Combine(Path.GetDirectoryName(dataPath), Path.GetFileNameWithoutExtension(dataPath));
+                    originalPath = originalPath.Substring(MapPath.Length+1, originalPath.Length - MapPath.Length-1).Replace('\\', '/');
+
+                    dic.Add(model.Permalink, originalPath);
+                }
+            }
+
+            //search all subdirectories aswell.
+            foreach (var dataPath in Directory.EnumerateDirectories(path))
+            {
+                dic = Permalinks(dataPath, dic);
+            }
+
+            return dic;
         }
     }
 }

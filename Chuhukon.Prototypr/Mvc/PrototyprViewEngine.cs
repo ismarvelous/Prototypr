@@ -22,7 +22,8 @@ namespace Chuhukon.Prototypr.Mvc
             {
                 viewLocations.Add(string.Format("~/Views/{0}/{1}.cshtml", partial, "{0}"));
             }
-               
+
+            viewLocations.Add("~/Views/notfound.cshtml");
 
             this.PartialViewLocationFormats = viewLocations.ToArray();
             this.ViewLocationFormats = viewLocations.ToArray();

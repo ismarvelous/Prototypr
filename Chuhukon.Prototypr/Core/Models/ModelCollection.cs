@@ -7,17 +7,29 @@ using System.Web;
 
 namespace Chuhukon.Prototypr.Core.Models
 {
-    public class ModelCollection<T> : DynamicObject, IEnumerable<T>
+    public class ModelCollection<T> : DynamicObject, IEnumerable<T>, IDataModel
     {
+        /// <summary>
+        /// Url path
+        /// </summary>
+        public string Url { get; set; }
+
+        /// <summary>
+        /// Directory path
+        /// </summary>
         public string Path { get; private set; }
+
+        /// <summary>
+        /// Layout path, used to select the correct view.
+        /// </summary>
         public string Layout { get; set; }
 
         private ISiteRepository Repository { get; set; }
-        private IEnumerable<T> Collection;
+        private IEnumerable<T> Collection; //files.
 
-        public ModelCollection(IEnumerable<T> collection, string path, ISiteRepository repository)
+        public ModelCollection(IEnumerable<T> files, string path, ISiteRepository repository)
         {
-            Collection = collection;
+            Collection = files;
             Repository = repository;
             Path = path;
         }

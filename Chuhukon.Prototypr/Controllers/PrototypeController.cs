@@ -12,10 +12,6 @@ namespace Chuhukon.Prototypr.Controllers
 {
     /// <summary>
     /// Default controller for all prototypes, calculates view to render and gets data from App_data folder.
-    /// 1. Is this a data file path? -> return file as model -> return (path - file )+/item" as view (route search: */path/item.cshtml or *path/item/index.cshtml)
-    /// 1.2 Does the file contain a layout definition? -> return file as model -> return layout as view (route search: *layout.cshtml or *layout/index.cshtml)
-    /// 2. Is this a data directory? -> return  collection of files as model -> return path as view (route search: */path/index.cshtml or */path.cshtml)
-    /// 3. No data file or data directory found? -> return default - empty model -> return path as view (route search: */path/index.cshtml or */path.cshtml)
     /// </summary>
     public class PrototypeController : Controller
     {
@@ -32,12 +28,17 @@ namespace Chuhukon.Prototypr.Controllers
             {
                 string path = this.RouteData.Values["path"].ToString();
 
-                dynamic model = Repository.FindModel(path);
+                IDataModel model = Repository.FindModel(path);
 
                 //return site and model..
                 ViewData.Add("Site", new Site(Repository));
 
-                return View(model.Layout, model); //default: view is equal to url path
+                if (!model.Url.Contains(path))
+                    return RedirectPermanent(string.Concat("/", model.Url)); //TODO: Implement Urls correctly..
+                else
+                    return View(model.Layout, model); //default: view is equal to url path
+
+                
             }
 
             return HttpNotFound();

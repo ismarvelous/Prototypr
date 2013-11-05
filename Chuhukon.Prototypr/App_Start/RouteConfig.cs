@@ -16,7 +16,7 @@ namespace Chuhukon.Prototypr
             routes.MapRoute(
                 "Default",
                 "{*path}",
-                new { controller = "Prototype", action = "Index", path="home" }
+                new { controller = "Prototype", action = "Index", path="index" }
             );
         }
     }

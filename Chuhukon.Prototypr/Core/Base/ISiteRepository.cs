@@ -7,6 +7,13 @@ namespace Chuhukon.Prototypr.Core.Base
 {
     public interface ISiteRepository
     {
-        dynamic FindModel(string path);
+        /// <summary>
+        /// Find a model based on the given URL path...
+        /// Result has to contain the properties (Layout, Url)
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        IDataModel FindModel(string path);
+        IDictionary<string, string> Permalinks();
     }
 }

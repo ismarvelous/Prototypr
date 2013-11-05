@@ -11,9 +11,9 @@ namespace Chuhukon.Prototypr.Infrastructure
 {
     public static class Extensions
     {
-        public static dynamic AsModelCollection<TSource>(this IEnumerable<TSource> source, string path, ISiteRepository repository)
+        public static dynamic AsModelCollection<TSource>(this IEnumerable<TSource> files, string path, ISiteRepository repository)
         {
-            var collection = new ModelCollection<TSource>(source, path, repository);
+            var collection = new ModelCollection<TSource>(files, path, repository);
             return collection;
         }
 

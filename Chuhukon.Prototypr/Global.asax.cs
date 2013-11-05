@@ -19,13 +19,14 @@ namespace Chuhukon.Prototypr
 
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
+            RouteConfig.RegisterRoutes(RouteTable.Routes);
 
             ViewEngines.Engines.Clear();
             ViewEngines.Engines.Add(new PrototyprViewEngine());
 
-            RouteConfig.RegisterRoutes(RouteTable.Routes);
-
             ControllerBuilder.Current.SetControllerFactory(new PrototyprControllerFactory());
         }
     }
+
+
 }

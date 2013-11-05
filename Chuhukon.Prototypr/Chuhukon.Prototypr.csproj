@@ -108,6 +108,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\PrototypeController.cs" />
+    <Compile Include="Core\Base\IDataObject.cs" />
+    <Compile Include="Core\Models\DynamicFileDataObject.cs" />
     <Compile Include="Core\Models\ModelCollection.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -128,7 +130,7 @@
     <None Include="App_Data\docs\lorem.md" />
     <Content Include="App_Data\posts\second post.json" />
     <Content Include="App_Data\posts\third post.json" />
-    <None Include="App_Data\posts\first post.json" />
+    <None Include="App_Data\posts\first post.md" />
     <Content Include="Global.asax" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -145,14 +147,14 @@
     <Content Include="Views\posts\item.cshtml" />
     <Content Include="Views\posts\index.cshtml" />
     <Content Include="Views\custom.cshtml" />
-    <Content Include="Views\docs\item.cshtml" />
+    <Content Include="Views\docs\lorem.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\home.cshtml" />
+    <Content Include="Views\index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\notfound.cshtml" />
