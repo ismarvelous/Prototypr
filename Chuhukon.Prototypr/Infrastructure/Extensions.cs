@@ -21,15 +21,15 @@ namespace Chuhukon.Prototypr.Infrastructure
         /// Use MarkdownSharp to transform a markdown file to html, but save the meta data into the given metamodel
         /// </summary>
         /// <param name="?"></param>
-        /// <param name="path">path of the markdown file </param>
+        /// <param name="text"></param>
         /// <param name="metamodel">dictionary to put all meta items into </param>
-        /// <param name="linenumber">The linenumber where the actual content starts</param>
+        /// <param name="markdown"></param>
         public static string Transform(this MarkdownSharp.Markdown markdown, string text, IDictionary<string, object> metamodel)
         {
-            int linenr = 0;
-            bool metamode = false;
-            StringBuilder markdowndata = new StringBuilder();
-            System.IO.StringReader reader = new System.IO.StringReader(text);
+            var linenr = 0;
+            var metamode = false;
+            var markdowndata = new StringBuilder();
+            var reader = new System.IO.StringReader(text);
 
             //TODO: use http://www.aaubry.net/page/YamlDotNet
 

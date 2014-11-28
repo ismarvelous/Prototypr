@@ -2,7 +2,7 @@
 Author: Jeroen Wijdeven
 Date: 2013-10-20
 Title: First post
-Layout: posts/item
+Layout: Custom
 ---
 
 ### First post header

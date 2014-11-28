@@ -15,30 +15,38 @@ namespace Chuhukon.Prototypr.Controllers
     /// </summary>
     public class PrototypeController : Controller
     {
-        private ISiteRepository Repository;
+        private readonly ISiteRepository Repository;
 
         public PrototypeController(ISiteRepository repository)
         {
             Repository = repository;
         }
 
-        public ActionResult Index()
+        public ActionResult Index(string path)
         {
-            if (this.RouteData.Values.ContainsKey("path") && this.RouteData.Values["path"] != null)
+            if (!string.IsNullOrEmpty(path))
             {
-                string path = this.RouteData.Values["path"].ToString();
+                //var path = this.RouteData.Values["path"].ToString();
 
-                IDataModel model = Repository.FindModel(path);
+                var model = Repository.FindModel(path);
 
                 //return site and model..
                 ViewData.Add("Site", new Site(Repository));
 
-                if (!model.Url.Contains(path))
+                if (model.Url != null && !model.Url.Contains(path))
                     return RedirectPermanent(string.Concat("/", model.Url)); //TODO: Implement Urls correctly..
-                else
-                    return View(model.Layout, model); //default: view is equal to url path
 
-                
+                //select view //TODO: cleanup this code..
+                if (ViewEngines.Engines.FindView(ControllerContext, model.Layout, null).View == null)
+                {
+                    if (model.Layout.LastIndexOf("/", StringComparison.InvariantCulture) == model.Layout.Length-1)
+                        model.Layout = model.Layout.Remove(model.Layout.Length - 1, 1);
+
+                    model.Layout = string.Format("{0}/item",
+                        model.Layout.Substring(0, model.Layout.LastIndexOf("/", StringComparison.InvariantCulture)));
+                }
+
+                return View(model.Layout, model);
             }
 
             return HttpNotFound();

@@ -25,7 +25,7 @@ namespace Chuhukon.Prototypr.Core.Models
         public string Layout { get; set; }
 
         private ISiteRepository Repository { get; set; }
-        private IEnumerable<T> Collection; //files.
+        private readonly IEnumerable<T> Collection; //files.
 
         public ModelCollection(IEnumerable<T> files, string path, ISiteRepository repository)
         {

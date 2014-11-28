@@ -37,11 +37,10 @@ namespace Chuhukon.Prototypr.Infrastructure
             if (permaLink.Key != null)
                 path = permaLink.Value;
 
-            MarkdownSharp.Markdown md = new MarkdownSharp.Markdown();
-            IDataModel model = new DynamicFileDataObject(new ExpandoObject() as IDictionary<string, object>);
+            IDataModel model = new DynamicFileDataObject(new ExpandoObject());
 
             //data path under app_data is equal to url path
-            string[] dataPaths = new string[] { 
+            var dataPaths = new string[] { 
                 Path.Combine(MapPath, string.Format("{0}.json", path.Replace('/', '\\'))),
                 Path.Combine(MapPath, string.Format("{0}.md", path.Replace('/', '\\'))),
                 Path.Combine(MapPath, path.Replace('/', '\\'))
@@ -53,9 +52,7 @@ namespace Chuhukon.Prototypr.Infrastructure
 
                 if (model != null)
                 {
-                    if (model is IDictionary<String, object> && !((IDictionary<String, object>)model).ContainsKey("Layout"))
-                        model.Layout = path;
-                    else if (model.Layout == null)
+                    if (model.Layout == null)
                         model.Layout = path;
 
                     break;
@@ -64,16 +61,15 @@ namespace Chuhukon.Prototypr.Infrastructure
 
             if(model == null)
             {
-                model = new DynamicFileDataObject(new ExpandoObject() as IDictionary<string, object>);
-                model.Layout = path;
-                model.Url = path;
+                model = new DynamicFileDataObject(new ExpandoObject())
+                {
+                    Layout = path,
+                    Url = path
+                };
             }
             else if (model is DynamicFileDataObject)
             {
-                if (((dynamic)model).PermaLink != null)
-                    model.Url = ((dynamic)model).Permalink;
-                else
-                    model.Url = path;
+                model.Url = ((dynamic)model).Permalink ?? path;
             }
 
             return model;
@@ -81,15 +77,15 @@ namespace Chuhukon.Prototypr.Infrastructure
 
         private IDataModel GetModel(string dataPath)
         {
-            MarkdownSharp.Markdown md = new MarkdownSharp.Markdown();
+            var md = new MarkdownSharp.Markdown();
             dynamic model = null;
 
             if (dataPath.EndsWith(".json") && System.IO.File.Exists(dataPath)) //does json file exist?
             {
                 var source = JsonConvert.DeserializeObject<ExpandoObject>(System.IO.File.ReadAllText(dataPath), new Newtonsoft.Json.Converters.ExpandoObjectConverter()); //deserialize json object
-                model = new DynamicFileDataObject(source as IDictionary<string, object>);
+                model = new DynamicFileDataObject(source);
             }
-            else if (dataPath.EndsWith(".md") && System.IO.File.Exists(dataPath)) //does markdown file exist?
+            else if (dataPath.EndsWith(".md") && File.Exists(dataPath)) //does markdown file exist?
             {
                 dynamic source = new ExpandoObject();
                 model = new DynamicFileDataObject(source as IDictionary<string, object>);
@@ -111,7 +107,7 @@ namespace Chuhukon.Prototypr.Infrastructure
                     else if (filepath.EndsWith("md", StringComparison.InvariantCultureIgnoreCase))
                     {
                         dynamic obj = new ExpandoObject();
-                        obj.Content = System.Web.Mvc.MvcHtmlString.Create(md.Transform(System.IO.File.ReadAllText(filepath), obj as IDictionary<string, object>));
+                        obj.Content = System.Web.Mvc.MvcHtmlString.Create(md.Transform(File.ReadAllText(filepath), obj as IDictionary<string, object>));
                         pages.Add(obj);
                     }
                 }
@@ -143,7 +139,7 @@ namespace Chuhukon.Prototypr.Infrastructure
             {
                 dynamic model = GetModel(dataPath);
 
-                if (model != null && model.PermaLink != null)
+                if (model != null && model.Permalink != null)
                 {
                     //TODO: calculate correct path...
                     var originalPath = Path.Combine(Path.GetDirectoryName(dataPath), Path.GetFileNameWithoutExtension(dataPath));

@@ -9,7 +9,7 @@ namespace Chuhukon.Prototypr.Core.Models
 {
     public class DynamicFileDataObject : DynamicObject, IDataModel
     {
-        private IDictionary<string, object> Source;
+        private readonly IDictionary<string, object> Source;
 
         public DynamicFileDataObject(IDictionary<string, object> source)
         {
@@ -37,9 +37,35 @@ namespace Chuhukon.Prototypr.Core.Models
             return true;
         }
 
+        private string _url;
+        public string Url
+        {
+            get
+            {
+                if (_url == null && Source.ContainsKey("Url"))
+                {
+                    _url = Source["Url"].ToString();
+                }
 
-        public string Url { get; set; }
+                return _url;
+            }
+            set { _url = value; }
+        }
 
-        public string Layout { get; set; }
+        private string _layout;
+
+        public string Layout
+        {
+            get
+            {
+                if (_layout == null && Source.ContainsKey("Layout"))
+                {
+                    _layout = Source["Layout"].ToString();
+                }
+
+                return _layout;
+            }
+            set { _layout = value; }
+        }
     }
 }

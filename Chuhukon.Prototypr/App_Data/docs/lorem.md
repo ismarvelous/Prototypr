@@ -2,7 +2,7 @@
 Author: Jeroen Wijdeven
 Date: 2013-10-20
 Title: "lorem ipsum title"
-Permalink: jeroen/helloworld
+Permalink: helloworld/ismarvelous
 ---
 
 ### Lorem ipsum dolor 

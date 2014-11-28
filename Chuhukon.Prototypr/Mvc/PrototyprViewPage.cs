@@ -15,15 +15,7 @@ namespace Chuhukon.Prototypr.Mvc
         /// </summary>
         public dynamic Site
         {
-            get
-            {
-                if(_site == null)
-                {
-                    _site = ViewData["Site"];
-                }
-
-                return _site;
-            }
+            get { return _site ?? (_site = ViewData["Site"]); }
         }
         public override void Execute()
         {
