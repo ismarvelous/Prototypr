@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace Chuhukon.Prototypr.Mvc
+namespace Prototypr.Mvc
 {
     /// <summary>
     /// use the correct view paths.. because there is only one controller, the controller is not part of the viewpath..

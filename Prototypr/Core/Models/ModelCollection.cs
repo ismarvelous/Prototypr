@@ -1,11 +1,11 @@
-﻿using Chuhukon.Prototypr.Core.Base;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
 using System.Web;
+using Prototypr.Core.Base;
 
-namespace Chuhukon.Prototypr.Core.Models
+namespace Prototypr.Core.Models
 {
     public class ModelCollection<T> : DynamicObject, IEnumerable<T>, IDataModel
     {
@@ -24,8 +24,8 @@ namespace Chuhukon.Prototypr.Core.Models
         /// </summary>
         public string Layout { get; set; }
 
-        private ISiteRepository Repository { get; set; }
-        private readonly IEnumerable<T> Collection; //files.
+        protected readonly ISiteRepository Repository;
+        protected readonly IEnumerable<T> Collection; //files.
 
         public ModelCollection(IEnumerable<T> files, string path, ISiteRepository repository)
         {

@@ -1,11 +1,11 @@
-﻿using Chuhukon.Prototypr.Core.Base;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
 using System.Web;
+using Prototypr.Core.Base;
 
-namespace Chuhukon.Prototypr.Core.Models
+namespace Prototypr.Core.Models
 {
     public class DynamicFileDataObject : DynamicObject, IDataModel
     {

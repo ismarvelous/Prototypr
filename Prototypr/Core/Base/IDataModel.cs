@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Chuhukon.Prototypr.Core.Base
+namespace Prototypr.Core.Base
 {
     public interface IDataModel : IDynamicMetaObjectProvider
     {

@@ -1,5 +1,5 @@
-﻿using Chuhukon.Prototypr.Core.Base;
-using Chuhukon.Prototypr.Core.Models;
+﻿using Prototypr.Core.Base;
+using Prototypr.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -8,7 +8,7 @@ using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
-namespace Chuhukon.Prototypr.Controllers
+namespace Prototypr.Controllers
 {
     /// <summary>
     /// Default controller for all prototypes, calculates view to render and gets data from App_data folder.

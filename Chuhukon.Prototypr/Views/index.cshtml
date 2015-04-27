@@ -7,7 +7,7 @@
 <ul>
     @foreach (var post in Site.posts)
     {
-        <li>@post.Title</li>
+        <li><a href="@post.Url">@post.Title</a></li>
     }
 </ul>
 
@@ -17,14 +17,14 @@
 <ul>
     @foreach (var doc in Site.docs)
     {
-        <li>@(doc.Title) - @(doc.Author)</li>
+        <li><a href="@doc.Url">@(doc.Title) - @(doc.Author)</a></li>
     }
 </ul>
 
 <h2>Permalinks</h2>
 
 <ul>
-    <li>Title for url @Site.docs.lorem.Url @Site.docs.lorem.Title</li>
+    <li><a href="@Site.docs.lorem.Url">Title for url @Site.docs.lorem.Url @Site.docs.lorem.Title</a></li>
 </ul>
 
 

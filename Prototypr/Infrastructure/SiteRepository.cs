@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Newtonsoft.Json;
-using Chuhukon.Prototypr.Core.Base;
-using System.Text;
 using System.Dynamic;
 using System.IO;
-using Chuhukon.Prototypr.Core.Models;
+using System.Linq;
+using System.Web.Mvc;
+using MarkdownSharp;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using Prototypr.Core.Base;
+using Prototypr.Core.Models;
 
-
-namespace Chuhukon.Prototypr.Infrastructure
+namespace Prototypr.Infrastructure
 {
     /// <summary>
     /// Appdata site repository for markdown and json files..
@@ -77,24 +77,24 @@ namespace Chuhukon.Prototypr.Infrastructure
 
         private IDataModel GetModel(string dataPath)
         {
-            var md = new MarkdownSharp.Markdown();
+            var md = new Markdown();
             dynamic model = null;
 
-            if (dataPath.EndsWith(".json") && System.IO.File.Exists(dataPath)) //does json file exist?
+            if (dataPath.EndsWith(".json") && File.Exists(dataPath)) //does json file exist?
             {
-                var source = JsonConvert.DeserializeObject<ExpandoObject>(System.IO.File.ReadAllText(dataPath), new Newtonsoft.Json.Converters.ExpandoObjectConverter()); //deserialize json object
+                var source = JsonConvert.DeserializeObject<ExpandoObject>(File.ReadAllText(dataPath), new ExpandoObjectConverter()); //deserialize json object
                 model = new DynamicFileDataObject(source);
             }
             else if (dataPath.EndsWith(".md") && File.Exists(dataPath)) //does markdown file exist?
             {
                 dynamic source = new ExpandoObject();
                 model = new DynamicFileDataObject(source as IDictionary<string, object>);
-                model.Content = System.Web.Mvc.MvcHtmlString.Create(md.Transform(System.IO.File.ReadAllText(dataPath), source as IDictionary<string, object>)); //deserialze markdown..
+                model.Content = MvcHtmlString.Create(md.Transform(File.ReadAllText(dataPath), source as IDictionary<string, object>)); //deserialze markdown..
             }
-            else if (System.IO.Directory.Exists(dataPath)) //path is equal the the directory
+            else if (Directory.Exists(dataPath)) //path is equal the the directory
             {
                 //Get all data files
-                var dataFiles = System.IO.Directory.GetFiles(dataPath, "*.*")
+                var dataFiles = Directory.GetFiles(dataPath, "*.*")
                     .Where(f => f.EndsWith(".md") || f.EndsWith(".json"));
 
                 var pages = new List<dynamic>(); //model is IEnumerable of all directory files
@@ -102,17 +102,18 @@ namespace Chuhukon.Prototypr.Infrastructure
                 {
                     if (filepath.EndsWith("json", StringComparison.InvariantCultureIgnoreCase))
                     {
-                        pages.Add(JsonConvert.DeserializeObject(System.IO.File.ReadAllText(filepath)));
+                        pages.Add(JsonConvert.DeserializeObject(File.ReadAllText(filepath)));
                     }
                     else if (filepath.EndsWith("md", StringComparison.InvariantCultureIgnoreCase))
                     {
                         dynamic obj = new ExpandoObject();
-                        obj.Content = System.Web.Mvc.MvcHtmlString.Create(md.Transform(File.ReadAllText(filepath), obj as IDictionary<string, object>));
+                        obj.Content = MvcHtmlString.Create(md.Transform(File.ReadAllText(filepath), obj as IDictionary<string, object>));
                         pages.Add(obj);
                     }
                 }
 
                 model = pages.AsModelCollection(dataPath, this);
+                //todo: be sure each item in the collection is an IDataModel!!
             }
             else
             {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace Chuhukon.Prototypr.Mvc
+namespace Prototypr.Mvc
 {
     public class PrototyprViewPage<TModel> : WebViewPage<TModel>
     {

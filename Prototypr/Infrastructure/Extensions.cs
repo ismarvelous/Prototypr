@@ -1,13 +1,13 @@
-﻿using Chuhukon.Prototypr.Core.Base;
-using Chuhukon.Prototypr.Core.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
+using Prototypr.Core.Base;
+using Prototypr.Core.Models;
 
-namespace Chuhukon.Prototypr.Infrastructure
+namespace Prototypr.Infrastructure
 {
     public static class Extensions
     {
