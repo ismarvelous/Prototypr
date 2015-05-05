@@ -3,6 +3,7 @@ Author: Jeroen Wijdeven
 Date: 2013-10-20
 Title: First post
 Layout: Custom
+Permalink: hellow/test
 ---
 
 ### First post header

@@ -1,7 +1,6 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 using Prototypr.Mvc;
-using PrototyprControllerFactory = Chuhukon.Example.PrototyprControllerFactory;
 
 namespace Prototypr
 {

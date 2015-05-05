@@ -2,18 +2,21 @@
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
-using System.Web;
+using System.Text;
+using System.Threading.Tasks;
 using Prototypr.Core.Base;
 
 namespace Prototypr.Core.Models
 {
-    public class DynamicFileDataObject : DynamicObject, IDataModel
+    public abstract class BaseDataObject : DynamicObject, IDataModel
     {
-        private readonly IDictionary<string, object> Source;
+        protected readonly IDictionary<string, object> Source;
+        protected readonly ISiteRepository Repository;
 
-        public DynamicFileDataObject(IDictionary<string, object> source)
+        protected BaseDataObject(IDictionary<string, object> source, ISiteRepository repository)
         {
             Source = source;
+            Repository = repository;
         }
 
         public override bool TryGetMember(GetMemberBinder binder, out object result)
@@ -37,35 +40,16 @@ namespace Prototypr.Core.Models
             return true;
         }
 
-        private string _url;
-        public string Url
+        public virtual string Url { get; set; } //todo: basic permalink logic here
+
+        public virtual string Layout { get; set; } //todo: basic layout logic here..
+
+        public virtual bool IsNull
         {
             get
             {
-                if (_url == null && Source.ContainsKey("Url"))
-                {
-                    _url = Source["Url"].ToString();
-                }
-
-                return _url;
+                throw new NotImplementedException();
             }
-            set { _url = value; }
-        }
-
-        private string _layout;
-
-        public string Layout
-        {
-            get
-            {
-                if (_layout == null && Source.ContainsKey("Layout"))
-                {
-                    _layout = Source["Layout"].ToString();
-                }
-
-                return _layout;
-            }
-            set { _layout = value; }
         }
     }
 }

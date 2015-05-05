@@ -15,5 +15,7 @@ namespace Prototypr.Core.Base
         /// Layout path, used to select the correct view.
         /// </summary>
         string Layout { get; set; }
+
+        bool IsNull { get; }
     }
 }

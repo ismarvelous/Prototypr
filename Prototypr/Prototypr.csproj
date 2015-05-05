@@ -41,10 +41,13 @@
     <Compile Include="Controllers\PrototypeController.cs" />
     <Compile Include="Core\Base\IDataModel.cs" />
     <Compile Include="Core\Base\ISiteRepository.cs" />
-    <Compile Include="Core\Models\DynamicFileDataObject.cs" />
+    <Compile Include="Core\Models\BaseDataObject.cs" />
+    <Compile Include="Core\Models\FileDataObject.cs" />
+    <Compile Include="Core\Models\JsonFileDataObject.cs" />
+    <Compile Include="Core\Models\MdFileDataObject.cs" />
     <Compile Include="Core\Models\ModelCollection.cs" />
+    <Compile Include="Core\Models\NullDataObject.cs" />
     <Compile Include="Core\Models\Site.cs" />
-    <Compile Include="Core\PrototyprControllerFactory.cs" />
     <Compile Include="Infrastructure\Extensions.cs" />
     <Compile Include="Infrastructure\SiteRepository.cs" />
     <Compile Include="Mvc\PrototyprControllerFactory.cs" />

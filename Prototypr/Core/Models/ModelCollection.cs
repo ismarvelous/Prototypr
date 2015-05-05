@@ -9,20 +9,32 @@ namespace Prototypr.Core.Models
 {
     public class ModelCollection<T> : DynamicObject, IEnumerable<T>, IDataModel
     {
-        /// <summary>
-        /// Url path
-        /// </summary>
-        public string Url { get; set; }
+
+        private string _url;
+        public virtual string Url
+        {
+            get { return _url ?? (_url = Path); }
+            set { _url = value; }
+        }
+
+        private string _layout;
+
+        public virtual string Layout
+        {
+            get { return _layout ?? (_layout = Path); }
+            set { _layout = value; }
+        }
 
         /// <summary>
         /// Directory path
         /// </summary>
         public string Path { get; private set; }
 
-        /// <summary>
-        /// Layout path, used to select the correct view.
-        /// </summary>
-        public string Layout { get; set; }
+
+        public bool IsNull
+        {
+            get { return false; }
+        }
 
         protected readonly ISiteRepository Repository;
         protected readonly IEnumerable<T> Collection; //files.

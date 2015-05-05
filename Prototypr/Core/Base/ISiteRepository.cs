@@ -15,5 +15,6 @@ namespace Prototypr.Core.Base
         /// <returns></returns>
         IDataModel FindModel(string path);
         IDictionary<string, string> Permalinks();
+        string DataPath { get; }
     }
 }
