@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chuhukon.Example", "Chuhukon.Prototypr\Chuhukon.Example.csproj", "{8ADCC275-E832-4BD3-ACC4-8F1087157D96}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarkdownSharp", "MarkdownSharp\MarkdownSharp.csproj", "{37619116-CCE8-465A-8B1F-081CA53364BB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{55B72128-7641-4138-90CC-CFB49DFBD7D8}"
@@ -14,6 +12,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionIt
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Prototypr", "Prototypr\Prototypr.csproj", "{71E1C00E-8D8B-4F7F-B174-93697B75EBBD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Prototypr.Blog", "Prototypr.Blog\Prototypr.Blog.csproj", "{F881E902-3D0F-4DB7-861E-AB34161BAC2B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		CodeCoverage|Any CPU = CodeCoverage|Any CPU
@@ -22,14 +22,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{8ADCC275-E832-4BD3-ACC4-8F1087157D96}.CodeCoverage|Any CPU.ActiveCfg = Release|Any CPU
-		{8ADCC275-E832-4BD3-ACC4-8F1087157D96}.CodeCoverage|Any CPU.Build.0 = Release|Any CPU
-		{8ADCC275-E832-4BD3-ACC4-8F1087157D96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8ADCC275-E832-4BD3-ACC4-8F1087157D96}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8ADCC275-E832-4BD3-ACC4-8F1087157D96}.FxCop|Any CPU.ActiveCfg = Release|Any CPU
-		{8ADCC275-E832-4BD3-ACC4-8F1087157D96}.FxCop|Any CPU.Build.0 = Release|Any CPU
-		{8ADCC275-E832-4BD3-ACC4-8F1087157D96}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8ADCC275-E832-4BD3-ACC4-8F1087157D96}.Release|Any CPU.Build.0 = Release|Any CPU
 		{37619116-CCE8-465A-8B1F-081CA53364BB}.CodeCoverage|Any CPU.ActiveCfg = Release|Any CPU
 		{37619116-CCE8-465A-8B1F-081CA53364BB}.CodeCoverage|Any CPU.Build.0 = Release|Any CPU
 		{37619116-CCE8-465A-8B1F-081CA53364BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -46,6 +38,14 @@ Global
 		{71E1C00E-8D8B-4F7F-B174-93697B75EBBD}.FxCop|Any CPU.Build.0 = Release|Any CPU
 		{71E1C00E-8D8B-4F7F-B174-93697B75EBBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{71E1C00E-8D8B-4F7F-B174-93697B75EBBD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F881E902-3D0F-4DB7-861E-AB34161BAC2B}.CodeCoverage|Any CPU.ActiveCfg = Release|Any CPU
+		{F881E902-3D0F-4DB7-861E-AB34161BAC2B}.CodeCoverage|Any CPU.Build.0 = Release|Any CPU
+		{F881E902-3D0F-4DB7-861E-AB34161BAC2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F881E902-3D0F-4DB7-861E-AB34161BAC2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F881E902-3D0F-4DB7-861E-AB34161BAC2B}.FxCop|Any CPU.ActiveCfg = Release|Any CPU
+		{F881E902-3D0F-4DB7-861E-AB34161BAC2B}.FxCop|Any CPU.Build.0 = Release|Any CPU
+		{F881E902-3D0F-4DB7-861E-AB34161BAC2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F881E902-3D0F-4DB7-861E-AB34161BAC2B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Prototypr</RootNamespace>
     <AssemblyName>Prototypr</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <TargetFrameworkProfile />
@@ -38,18 +38,19 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Application.cs" />
-    <Compile Include="Controllers\PrototypeController.cs" />
+    <Compile Include="Controllers\PrototyprController.cs" />
     <Compile Include="Core\Base\IDataModel.cs" />
-    <Compile Include="Core\Base\ISiteRepository.cs" />
-    <Compile Include="Core\Models\BaseDataObject.cs" />
-    <Compile Include="Core\Models\FileDataObject.cs" />
-    <Compile Include="Core\Models\JsonFileDataObject.cs" />
-    <Compile Include="Core\Models\MdFileDataObject.cs" />
-    <Compile Include="Core\Models\ModelCollection.cs" />
-    <Compile Include="Core\Models\NullDataObject.cs" />
-    <Compile Include="Core\Models\Site.cs" />
-    <Compile Include="Infrastructure\Extensions.cs" />
-    <Compile Include="Infrastructure\SiteRepository.cs" />
+    <Compile Include="Core\Base\IDataRepository.cs" />
+    <Compile Include="Core\Models\BaseDataModel.cs" />
+    <Compile Include="Files\Base\IFileRepository.cs" />
+    <Compile Include="Files\Models\FileBase.cs" />
+    <Compile Include="Files\Models\Base.cs" />
+    <Compile Include="Files\Models\JsonFile.cs" />
+    <Compile Include="Files\Models\MdFile.cs" />
+    <Compile Include="Files\Models\FileCollection.cs" />
+    <Compile Include="Core\Models\NullDataModel.cs" />
+    <Compile Include="Files\Models\Site.cs" />
+    <Compile Include="Files\FileRepository.cs" />
     <Compile Include="Mvc\PrototyprControllerFactory.cs" />
     <Compile Include="Mvc\PrototyprViewEngine.cs" />
     <Compile Include="Mvc\PrototyprViewPage.cs" />
@@ -62,20 +63,17 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -99,10 +97,13 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.WebPages.Razor">
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
-      <Private>True</Private>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

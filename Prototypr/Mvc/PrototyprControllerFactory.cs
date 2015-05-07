@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Web.Mvc;
+using Prototypr.Files;
 
 namespace Prototypr.Mvc
 {
@@ -7,8 +8,8 @@ namespace Prototypr.Mvc
     {
         public override IController CreateController(System.Web.Routing.RequestContext requestContext, string controllerName)
         {
-            return controllerName == "Prototype" ? 
-                new Prototypr.Controllers.PrototypeController(new Prototypr.Infrastructure.SiteRepository(AppDomain.CurrentDomain.GetData("DataDirectory").ToString())) : 
+            return controllerName == "Prototypr" ? 
+                new Prototypr.Controllers.PrototyprController(new FileDataRepository(AppDomain.CurrentDomain.GetData("DataDirectory").ToString())) : 
                 base.CreateController(requestContext, controllerName);
         }
     }

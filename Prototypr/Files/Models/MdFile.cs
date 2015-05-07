@@ -1,41 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.ComponentModel.Design.Serialization;
 using System.Dynamic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.Mvc;
 using System.IO;
+using System.Text;
 using System.Text.RegularExpressions;
+using System.Web.Mvc;
 using MarkdownSharp;
-using Prototypr.Core.Base;
+using Prototypr.Core.Models;
+using Prototypr.Files.Base;
 
-namespace Prototypr.Core.Models
+namespace Prototypr.Files.Models
 {
-    public class MdFileDataObject : FileDataObject
+    public class MdFile : FileBase
     {
         private static readonly Markdown Markdown = new Markdown();
 
-        public MdFileDataObject(string path, ISiteRepository rep) : base(path, (new ExpandoObject()) as IDictionary<string, object>, rep)
+        public MdFile(string path, IFileDataRepository rep) : base(path, Markdown.Transform(new StringReader(File.ReadAllText(path))), rep)
         {
-            Content = MvcHtmlString.Create(Markdown.Transform(File.ReadAllText(path), Source)); //deserialze markdown..
+            Initialize();
         }
 
-        public MvcHtmlString Content // reserved property for markdown files.
+        public void Initialize()
         {
-            get; private set; 
+            FileExtension = ".md";
+            Url = Url.Replace(FileExtension, string.Empty);
+            Layout = Layout.Replace(FileExtension, string.Empty);
         }
 
-        public override string Url
+        public override bool IsNull
         {
-            get { return base.Url.Replace(".md", string.Empty); }
-            set { base.Url = value; }
-        }
-
-        public override string Layout
-        {
-            get { return base.Layout.Replace(".md", string.Empty); }
-            set { base.Layout = value; }
+            get { return false; }
         }
     }
 
@@ -44,16 +38,15 @@ namespace Prototypr.Core.Models
         /// <summary>
         /// Use MarkdownSharp to transform a markdown file to html, but save the meta data into the given metamodel
         /// </summary>
-        /// <param name="?"></param>
-        /// <param name="text"></param>
-        /// <param name="metamodel">dictionary to put all meta items into </param>
         /// <param name="markdown"></param>
-        internal static string Transform(this Markdown markdown, string text, IDictionary<string, object> metamodel)
+        /// <param name="reader"></param>
+        internal static IDictionary<string, object> Transform(this Markdown markdown, TextReader reader)
         {
+            IDictionary<string, object> metamodel = new ExpandoObject();
+
             var linenr = 0;
             var metamode = false;
             var markdowndata = new StringBuilder();
-            var reader = new System.IO.StringReader(text);
 
             //TODO: we maybe like to use http://www.aaubry.net/page/YamlDotNet
 
@@ -83,13 +76,18 @@ namespace Prototypr.Core.Models
                         var value = match.Groups[2].Value.TrimStart().TrimEnd();
 
                         //todo: build-in support for boolean, data time etc..
-                        metamodel.Add(property, value);
+                        if (metamodel.ContainsKey(property))
+                            metamodel[property] = value;
+                        else
+                            metamodel.Add(property, value);
                     }
                 }
                 linenr++;
             }
 
-            return markdown.Transform(reader.ReadToEnd());
+            metamodel.Add("Content", MvcHtmlString.Create(markdown.Transform(reader.ReadToEnd())));
+
+            return metamodel;
         }
     }
 }

@@ -9,9 +9,10 @@ using Prototypr.Core.Base;
 
 namespace Prototypr.Core.Models
 {
-    public class NullDataObject : BaseDataObject
+    public class NullDataModel : BaseDataModel
     {
-        public NullDataObject(ISiteRepository rep) : base (new ExpandoObject(), rep)
+        public NullDataModel()
+            : base(new ExpandoObject())
         {
         }
 

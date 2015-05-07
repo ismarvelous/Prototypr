@@ -7,19 +7,21 @@ using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using Prototypr.Files.Base;
+using Prototypr.Files.Models;
 
 namespace Prototypr.Controllers
 {
     /// <summary>
     /// Default controller for all prototypes, calculates view to render and gets data from App_data folder.
     /// </summary>
-    public class PrototypeController : Controller
+    public class PrototyprController : Controller
     {
-        private readonly ISiteRepository Repository;
+        protected readonly IFileDataRepository DataRepository;
 
-        public PrototypeController(ISiteRepository repository)
+        public PrototyprController(IFileDataRepository dataRepository)
         {
-            Repository = repository;
+            DataRepository = dataRepository;
         }
 
         public ActionResult Index(string path)
@@ -28,10 +30,10 @@ namespace Prototypr.Controllers
             {
                 //var path = this.RouteData.Values["path"].ToString();
 
-                var model = Repository.FindModel(path);
+                var model = DataRepository.FindModel(path);
 
                 //return site and model..
-                ViewData.Add("Site", new Site(Repository));
+                ViewData.Add("Site", new Site(DataRepository));
 
                 if (model.Url != null && !model.Url.Contains(path))
                     return RedirectPermanent(string.Concat("/", model.Url)); //TODO: Implement Urls correctly..
@@ -43,7 +45,10 @@ namespace Prototypr.Controllers
                         model.Layout = model.Layout.Remove(model.Layout.Length - 1, 1);
 
                     model.Layout = string.Format("{0}/item",
-                        model.Layout.Substring(0, model.Layout.LastIndexOf("/", StringComparison.InvariantCulture)));
+                        model.Layout.Substring(0,
+                            model.Layout.IndexOf("/", StringComparison.Ordinal) > 0
+                                ? model.Layout.LastIndexOf("/", StringComparison.InvariantCulture)
+                                : model.Layout.Length));
                 }
 
                 return View(model.Layout, model);
@@ -51,9 +56,5 @@ namespace Prototypr.Controllers
 
             return HttpNotFound();
         }
-
-        
-
     }
-
 }
