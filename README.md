@@ -1,7 +1,10 @@
+[![Build status](https://ci.appveyor.com/api/projects/status/dxobndb6jqs0y3js?svg=true)](https://ci.appveyor.com/project/ismarvelous/prototypr)  
+
 # Prototypr
-What is Prototypr: A prototyping engine inspired by engines like Jekyll and Mixture. Prototypr is using Razor as a template engine and JSON and Markdown files as a datasource. Prototypr is currently UNDERCONSTRUCTION!  
+Prototypr is a prototyping engins using Razor as a template engine. Prototypr.Files is an implementation of the core using JSON and Markdown files as a datasource. Prototypr is currently UNDERCONSTRUCTION!  
 
 Goal: Prototypr, where front- and backend developers come along! Razor, JSON and Markdown are easy readable and understandable for both, frontend and backend developers. With Prototypr you can easily mock your cms data (contenttypes, pagetypes, documenttypes, etc) with JSON and Markdown. And build your templates by using Razor.
+Prototypr.Blog is an implementation of a lightweight blogengine using Prototypr.Files.
 
 ## Routes and paths
 Urls are handled as follows:  
@@ -13,10 +16,11 @@ For example "http://yourdomain/docs/lorem"
   
 TIP: You can overrule the chosen template any time by define a "Layout" property (json) or YAML item (markdown) in your data file.  
 
-
 ## Start and Publish  
-Download Visual Studio Express and open this project.  You can download VS express for web here: http://www.microsoft.com/visualstudio/eng/products/visual-studio-express-products#d-express-for-web  
-TIP: Use windows azure and a publish profile or even continuous delivery in tfs online to publish your work continously. Check: http://www.windowsazure.com/en-us/develop/net/common-tasks/publishing-with-tfs/ for more information about continuous delivery.
+Currently we are working on two nuget packages
+
+* Prototypr.Blog: a starter project for blogger which is using Prototypr.Files (a file based CMS solution)
+* Prototypr: A nuget package of the core. This package also contains Prototypr.Files
 
 ### Plugins?
 Not jet possible....  
