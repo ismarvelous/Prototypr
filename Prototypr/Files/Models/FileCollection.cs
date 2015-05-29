@@ -2,9 +2,8 @@
 using System.Collections;
 using System.Dynamic;
 using System.Linq;
-using Prototypr.Core.Base;
+using Prototypr.Core;
 using Prototypr.Core.Models;
-using Prototypr.Files.Base;
 
 namespace Prototypr.Files.Models
 {

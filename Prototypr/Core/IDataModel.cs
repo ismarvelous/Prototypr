@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Dynamic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Dynamic;
 
-namespace Prototypr.Core.Base
+namespace Prototypr.Core
 {
     public interface IDataModel : IDynamicMetaObjectProvider
     {

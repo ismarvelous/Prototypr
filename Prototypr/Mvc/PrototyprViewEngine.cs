@@ -23,10 +23,10 @@ namespace Prototypr.Mvc
 
             viewLocations.AddRange(partials.Select(partial => string.Format("~/Views/{0}/{1}.cshtml", partial, "{0}")));
 
-//#if !DEBUG
-//            //when not in debug mode, use the default notfound template!
-//            viewLocations.Add("~/Views/notfound.cshtml");
-//#endif
+#if !DEBUG
+            //when not in debug mode, use the default notfound template!
+            viewLocations.Add("~/Views/notfound.cshtml");
+#endif
 
             this.PartialViewLocationFormats = viewLocations.ToArray();
             this.ViewLocationFormats = viewLocations.ToArray();

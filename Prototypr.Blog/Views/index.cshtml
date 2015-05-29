@@ -1,31 +1,82 @@
 ﻿@{
-    ViewBag.Title = "home";
+    Layout = "_layouts/main.cshtml";
 }
 
-<h2>Posts</h2>
+    <!-- Banner -->
+    <section id="banner">
+        <div class="inner">
+            <h2>@Site.Settings.Title</h2>
+            <p>
+                @Html.Raw(Site.Settings.SubTitle)
+            </p>
+        </div>
+        <a href="#one" class="more scrolly">Learn More</a>
+    </section>
 
-<ul>
-    @foreach (var post in Site.posts)
+    <!-- One -->
+    <section id="one" class="wrapper style1 special">
+        <div class="inner">
+            <header class="major">
+                <h2>
+                    @Site.Docs.About.Title
+                </h2>
+                <p>
+                    @Site.Docs.About.Content
+                </p>
+            </header>
+            <ul class="icons major">
+                <li><span class="icon fa-diamond major style1"><span class="label">Lorem</span></span></li>
+                <li><span class="icon fa-heart-o major style2"><span class="label">Ipsum</span></span></li>
+                <li><span class="icon fa-code major style3"><span class="label">Dolor</span></span></li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Two -->
+<section id="two" class="wrapper alt style2">
+    @foreach (var post in Site.Posts)
     {
-        <li><a href="@post.Url">@post.Title</a></li>
+        <section class="spotlight">
+                <div class="image">
+                    <img src="images/pic01.jpg" alt=""/>
+                </div>
+                <div class="content">
+                    <h2><a href="@post.Url">@post.Title</a></h2>
+                    <p>@post.Intro</p>
+                </div>
+        </section>
     }
-</ul>
+</section>
 
 
-<h2>Docs</h2>
 
-<ul>
-    @foreach (var doc in Site.docs)
-    {
-        <li><a href="@doc.Url">@(doc.Title) - @(doc.Author)</a></li>
-    }
-</ul>
+    <!-- Three -->
+    <section id="three" class="wrapper style3 special">
+        <div class="inner">
+            <header class="major">
+                <h2>@Site.Blocks.Title</h2>
+                <p>
+                    @Html.Raw(Site.Blocks.SubTitle)
+                </p>
+            </header>
+            <ul class="features">
+                @foreach (var feature in Site.Blocks.Features)
+                {
+                    @Html.Partial("partial", (object) feature)
+                }
+            </ul>
+        </div>
+    </section>
 
-<h2>Permalinks</h2>
-
-<ul>
-    <li><a href="@Site.docs.lorem.Url">Title for url @Site.docs.lorem.Url @Site.docs.lorem.Title</a></li>
-    <li><a href="@Site.posts.first_post.Url">@Site.posts.first_post.Title</a></li>
-</ul>
-
-
+    <!-- CTA -->
+    <section id="cta" class="wrapper style4">
+        <div class="inner">
+            <header>
+                <h2>Arcue ut vel commodo</h2>
+                <p>Aliquam ut ex ut augue consectetur interdum endrerit imperdiet amet eleifend fringilla.</p>
+            </header>
+            <ul class="actions vertical">
+                <li><a href="http://ismarvelous.nl" class="button fit">It's marvelous</a></li>
+            </ul>
+        </div>
+    </section>

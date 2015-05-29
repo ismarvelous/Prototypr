@@ -1,5 +1,4 @@
-﻿using Prototypr.Core.Base;
-using Prototypr.Core.Models;
+﻿using Prototypr.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -7,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
-using Prototypr.Files.Base;
+using Prototypr.Files;
 using Prototypr.Files.Models;
 
 namespace Prototypr.Controllers

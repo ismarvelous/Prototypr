@@ -5,17 +5,17 @@ using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web.Mvc;
-using MarkdownSharp;
 using Prototypr.Core.Models;
-using Prototypr.Files.Base;
+using Tanka.Markdown;
+using Tanka.Markdown.Html;
 
 namespace Prototypr.Files.Models
 {
     public class MdFile : FileBase
     {
-        private static readonly Markdown Markdown = new Markdown();
+        //private static readonly Markdown Markdown = new Markdown();
 
-        public MdFile(string path, IFileDataRepository rep) : base(path, Markdown.Transform(new StringReader(File.ReadAllText(path))), rep)
+        public MdFile(string path, IFileDataRepository rep) : base(path, Transform(new StringReader(File.ReadAllText(path))), rep)
         {
             Initialize();
         }
@@ -31,17 +31,12 @@ namespace Prototypr.Files.Models
         {
             get { return false; }
         }
-    }
 
-    internal static class MarkdownExtensions
-    {
-        /// <summary>
-        /// Use MarkdownSharp to transform a markdown file to html, but save the meta data into the given metamodel
-        /// </summary>
-        /// <param name="markdown"></param>
-        /// <param name="reader"></param>
-        internal static IDictionary<string, object> Transform(this Markdown markdown, TextReader reader)
+        private static IDictionary<string, object> Transform(TextReader reader)
         {
+            var parser = new MarkdownParser();
+            var renderer = new MarkdownHtmlRenderer();
+
             IDictionary<string, object> metamodel = new ExpandoObject();
 
             var linenr = 0;
@@ -85,9 +80,19 @@ namespace Prototypr.Files.Models
                 linenr++;
             }
 
-            metamodel.Add("Content", MvcHtmlString.Create(markdown.Transform(reader.ReadToEnd())));
+            metamodel.Add("Content", MvcHtmlString.Create(renderer.Render(parser.Parse(reader.ReadToEnd()))));  //MvcHtmlString.Create(markdown.Transform(reader.ReadToEnd())));
 
             return metamodel;
-        }
+        } 
+    }
+
+    internal static class MarkdownExtensions
+    {
+        /// <summary>
+        /// Use MarkdownSharp to transform a markdown file to html, but save the meta data into the given metamodel
+        /// </summary>
+        /// <param name="markdown"></param>
+        /// <param name="reader"></param>
+        
     }
 }

@@ -85,7 +85,35 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assets\css\font-awesome.min.css" />
+    <Content Include="assets\css\ie8.css" />
+    <Content Include="assets\css\ie9.css" />
+    <Content Include="assets\css\images\arrow.svg" />
+    <Content Include="assets\css\images\bars.svg" />
+    <Content Include="assets\css\images\close.svg" />
+    <Content Include="assets\css\main.css" />
+    <Content Include="assets\fonts\fontawesome-webfont.svg" />
+    <Content Include="assets\js\ie\backgroundsize.min.htc" />
+    <Content Include="assets\js\ie\html5shiv.js" />
+    <Content Include="assets\js\ie\respond.min.js" />
+    <Content Include="assets\js\jquery.min.js" />
+    <Content Include="assets\js\jquery.scrollex.min.js" />
+    <Content Include="assets\js\jquery.scrolly.min.js" />
+    <Content Include="assets\js\main.js" />
+    <Content Include="assets\js\skel.min.js" />
+    <Content Include="assets\js\util.js" />
     <Content Include="Global.asax" />
+    <Content Include="images\banner.jpg" />
+    <Content Include="images\pic01.jpg" />
+    <Content Include="images\pic02.jpg" />
+    <Content Include="images\pic03.jpg" />
+    <Content Include="images\pic04.jpg" />
+    <Content Include="images\pic05.jpg" />
+    <Content Include="App_Data\settings.json" />
+    <Content Include="App_Data\blocks.json" />
+    <Content Include="App_Data\elements.md" />
+    <None Include="Views\elements.cshtml" />
+    <None Include="Views\index.cshtml" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -96,18 +124,30 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
-    <Content Include="App_Data\docs\lorem.md" />
+    <Content Include="App_Data\docs\about.md" />
     <Content Include="App_Data\posts\first post.md" />
     <Content Include="App_Data\posts\second post.json" />
     <Content Include="App_Data\posts\third post.json" />
     <Content Include="Views\notfound.cshtml" />
-    <Content Include="Views\index.cshtml" />
-    <Content Include="Views\custom.cshtml" />
     <Content Include="Views\_components\partial.cshtml" />
-    <Content Include="Views\docs\lorem.cshtml" />
+    <Content Include="Views\docs\about.cshtml" />
     <Content Include="Views\posts\index.cshtml" />
     <Content Include="Views\posts\item.cshtml" />
     <Content Include="packages.config" />
+    <Content Include="assets\fonts\fontawesome-webfont.eot" />
+    <Content Include="assets\fonts\fontawesome-webfont.ttf" />
+    <Content Include="assets\fonts\fontawesome-webfont.woff" />
+    <Content Include="assets\fonts\fontawesome-webfont.woff2" />
+    <Content Include="assets\fonts\FontAwesome.otf" />
+    <Content Include="assets\sass\ie8.scss" />
+    <Content Include="assets\sass\ie9.scss" />
+    <Content Include="assets\sass\libs\_functions.scss" />
+    <Content Include="assets\sass\libs\_mixins.scss" />
+    <Content Include="assets\sass\libs\_skel.scss" />
+    <Content Include="assets\sass\libs\_vars.scss" />
+    <Content Include="assets\sass\main.scss" />
+    <Content Include="Views\_layouts\main.cshtml" />
+    <Content Include="Views\posts\planets.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

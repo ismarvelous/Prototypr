@@ -1,5 +1,4 @@
 ﻿using System.Dynamic;
-using Prototypr.Files.Base;
 
 namespace Prototypr.Files.Models
 {

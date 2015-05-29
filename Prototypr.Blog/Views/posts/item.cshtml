@@ -1,9 +1,19 @@
 ﻿@{
-    ViewBag.Title = "item.cshtml";
+    Layout = "../_layouts/main.cshtml";
 }
 
-<p>Example view for an item which doesn't have a specific view defined.</p>
-<h2>@Model.Title</h2>
+<!-- Main -->
+<article id="main">
+    <header>
+        <h2>@Model.Title</h2>
+        <p>@Model.Intro</p>
+    </header>
+    <section class="wrapper style5">
+        <div class="inner">
 
-@Model.Content
+           @Model.Content
+
+        </div>
+    </section>
+</article>
 

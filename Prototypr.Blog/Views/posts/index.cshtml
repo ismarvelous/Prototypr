@@ -1,13 +1,24 @@
 ﻿@{
-    ViewBag.Title = "index.cshtml";
+    Layout = "../_layouts/main.cshtml";
 }
-
-@foreach(var item in Model)
-{    
-    <p>example view for directory view.</p>
-    <h2>@item.Title</h2>
-
-    @item.Content
-    <hr />
-    
-}
+<article id="main">
+    <header>
+        <h2>Posts</h2>
+        <p>Each directory has it's own overview template.</p>
+    </header>
+    <section class="wrapper style5">
+        <div class="inner">
+            <div class="row">
+                <div class="6u 12u$(medium)">
+                    <h5>This is an overview / directory index page</h5>
+                    <ul class="alt">
+                        @foreach (var item in Model)
+                        {
+                            <li><a href="@item.Url">@item.Title</a></li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+</section>
+</article>

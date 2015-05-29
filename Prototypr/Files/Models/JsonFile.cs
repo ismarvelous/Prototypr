@@ -3,7 +3,6 @@ using System.IO;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Prototypr.Core.Models;
-using Prototypr.Files.Base;
 
 namespace Prototypr.Files.Models
 {

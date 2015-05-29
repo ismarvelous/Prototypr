@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
 using System.Text;
-using Prototypr.Core.Base;
 
 namespace Prototypr.Core.Models
 {
@@ -18,13 +17,13 @@ namespace Prototypr.Core.Models
 
         public override bool TryGetMember(GetMemberBinder binder, out object result)
         {
-            result = Source.FirstOrDefault(f => f.Key.Equals(binder.Name)).Value;
+            result = Source.FirstOrDefault(f => f.Key.Equals(binder.Name, StringComparison.InvariantCultureIgnoreCase)).Value;
             return true;
         }
 
         public override bool TrySetMember(SetMemberBinder binder, object value)
         {
-            var member = Source.FirstOrDefault(f => f.Key.Equals(binder.Name)).Value;
+            var member = Source.FirstOrDefault(f => f.Key.Equals(binder.Name, StringComparison.InvariantCultureIgnoreCase)).Value;
             if (member == null)
             {
                 Source.Add(binder.Name, value);

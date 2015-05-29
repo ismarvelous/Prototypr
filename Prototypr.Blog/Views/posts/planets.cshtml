@@ -1,0 +1,28 @@
+﻿@{
+    Layout = "../_layouts/main.cshtml";
+}
+
+<!-- Main -->
+<article id="main">
+    <header>
+        <h2>@Model.Title</h2>
+        <p>Define your own template in the corresponding model.</p>
+    </header>
+    <section class="wrapper style5">
+        <div class="inner">
+            <p>
+                <h3>About Planets and custom models</h3>
+
+                <span class="image left"><img src="/images/pic04.jpg" alt="" /></span> The term planet is ancient, with ties to history, science, mythology, and religion. Several planets in the Solar System can be seen with the naked eye. These were regarded by many early cultures as divine, or as emissaries of deities.
+                
+                
+            </p>
+            <p>
+                <h3>About @Model.Title</h3>
+
+                @Model.Content
+            </p>
+        </div>
+    </section>
+</article>
+

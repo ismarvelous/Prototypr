@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Prototypr.Files.Base;
 
 namespace Prototypr.Files.Models
 {

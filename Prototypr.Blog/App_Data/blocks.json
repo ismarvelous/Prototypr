@@ -1,0 +1,17 @@
+﻿{
+    "Title": "Lorem ipsum dolor",
+    "SubTitle": "Maecenas eget justo pretium, egestas diam a, tincidunt tortor.<br/>Aenean maximus massa sit amet lobortis tempus",
+    "Features": [
+        {
+            "Title" :  "About Paper planes",
+            "Intro": "Augue consectetur sed interdum imperdiet et ipsum. Mauris lorem tincidunt nullam amet leo Aenean ligula consequat consequat.",
+            "Icon" : "fa-paper-plane-o"
+
+        },
+        {
+            "Title" :  "About Laptops",
+            "Intro": "Augue consectetur sed interdum imperdiet et ipsum. Mauris lorem tincidunt nullam amet leo Aenean ligula consequat consequat.",
+            "Icon" : "fa-laptop"
+        }
+    ]
+}

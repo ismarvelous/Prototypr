@@ -2,13 +2,17 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Prototypr.Core.Base;
+using Prototypr.Core;
 using Prototypr.Core.Models;
-using Prototypr.Files.Base;
 using Prototypr.Files.Models;
 
 namespace Prototypr.Files
 {
+    public interface IFileDataRepository : IDataRepository
+    {
+        string DataPath { get; }
+    }
+
     /// <summary>
     /// Appdata site repository for markdown and json files..
     /// </summary>
