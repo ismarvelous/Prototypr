@@ -1,5 +1,6 @@
 ﻿---
 Author: Jeroen Wijdeven
+Title: Model for elements view.
 ---
 
-Content is not used this is just a dummy file to show the elements view.
+Dummy..

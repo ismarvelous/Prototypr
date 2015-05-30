@@ -1,6 +1,6 @@
 ﻿{
-    "Title": "Lorem ipsum dolor",
-    "SubTitle": "Maecenas eget justo pretium, egestas diam a, tincidunt tortor.<br/>Aenean maximus massa sit amet lobortis tempus",
+    "Title": "Lorem ipsum Partials",
+    "SubTitle": "Prototypr has ofcourse support for partials and JSON arrays.<br/>Aenean maximus massa sit amet lobortis tempus",
     "Features": [
         {
             "Title" :  "About Paper planes",
